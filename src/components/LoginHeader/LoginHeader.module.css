@@ -1,0 +1,26 @@
+.circle1 {
+    display: inline;
+}
+.circle2{
+    display: inline;
+    margin-left: -20px;
+    margin-right: 10px;
+    position:relative;
+    top:-10px;
+}
+
+.logo {
+    color: #1F4F7B;
+    text-align: center;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    font-weight: bold;
+    font-size: 500%;
+    margin-right: 10px;   
+}
+
+.slogan {
+    margin-bottom: 30px;
+    font-weight: 500;
+    font-size: 140%;
+    color: #777171;
+}

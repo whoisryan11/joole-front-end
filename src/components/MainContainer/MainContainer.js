@@ -1,7 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Route, Link, Switch } from 'react-router-dom';
+import { Route, Link, Switch, Redirect } from 'react-router-dom';
+
+import * as authAction from '../../actions/auth';
+
 import Login from '../Login/Login';
+import Signup from '../Signup/Signup';
+import Search from '../Search/Search';
+import Product from '../Product/Product';
+
+import styles from './MainContainer.module.css'
 
 
 class MainContainer extends Component {
@@ -14,21 +22,32 @@ class MainContainer extends Component {
     }
 
     componentDidMount(){
-        //console.log(this.props);
+        console.log(this.props);
     }
 
+    logoutHandler(event) {
+        event.preventDefault();
+        this.props.onLogout();
+    }
 
     render(){
-        const routeGuard = this.state.loggedIn || this.props.loggedIn;
+        const routeGuard =  this.props.loggedIn;
         return (
-        <div className="Main-Container">
+        <div className={styles.Main}>
             
-            {routeGuard ? <h1>Logged In</h1> : <h1>Not Logged In</h1>} 
+            {routeGuard ? <h1><button onClick={(event) => {this.logoutHandler(event)}}>Logout</button></h1> : null} 
 
             <Switch>
-                <Route exact path='/' render={() => <div><p><Link  to={`/login`}>
-                    Please click here to login!</Link></p></div>} />
+                <Route exact path='/' render={() => 
+                <div>
+                    <p><Link  to={`/login`}>Login</Link></p>
+                    <p><Link  to={`/signup`}>Sign Up</Link></p>
+                </div>} />
+
+                <Route exact path='/signup' render={ ( routeProps ) => <Signup {...routeProps} />} />
                 <Route exact path="/login" render={(routeProps) => <Login {...routeProps} />} />
+                <Route exact path="/search" render={(routeProps) => ( routeGuard ? (<Search {...routeProps}/>) : (<Redirect to='/login'/>) ) }/>
+                <Route exact path="/product" render={(routeProps) => ( routeGuard ? (<Product {...routeProps}/>) : (<Redirect to='/login'/>) ) }/>
             </Switch>
         </div>)
     }
@@ -40,5 +59,11 @@ const mapStateToProps = (state) => {
     }
 };
 
+const mapDispatchToProps = dispatch => {
+    return {
+        onLogout: () => dispatch( authAction.logout() ),
+    }
+}
 
-export default connect(mapStateToProps, null)(MainContainer);
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainContainer);

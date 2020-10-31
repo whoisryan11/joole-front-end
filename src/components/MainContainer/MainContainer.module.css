@@ -1,0 +1,7 @@
+.Main {
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(#7bb5ee, #ffffff);
+    height: 100vh;
+    text-align: center;
+}

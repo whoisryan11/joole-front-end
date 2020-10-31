@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-
-import Input from '../Input';
+import classes from './Login.module.css';
+import Input from '../Input/Input';
 import * as authAction from '../../actions/auth'
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import LoginHeader from '../LoginHeader/LoginHeader';
 
 class Login extends Component {
     state = {
@@ -40,14 +41,17 @@ class Login extends Component {
 
     checkValidaity (value, rules) {
         let isValid = true;
-        if (!rules){
+        if ( !rules ) {
             return true;
         }
-        if (rules.required) {
+
+        if ( rules.required ) {
             isValid = value.trim() !== '' && isValid;
         }
+
         if ( rules.minLength ) {
             isValid = value.length >= rules.minLength && isValid
+            //console.log(isValid)
         }
 
         return isValid;
@@ -70,7 +74,9 @@ class Login extends Component {
 
 
     componentDidMount() {
-        console.log(this.props);
+        if(this.props.registered === true) {
+            this.props.logout();
+        }
     }
 
     submitHandler(event) {
@@ -82,6 +88,16 @@ class Login extends Component {
         .catch(() => {
             console.log("Login Failed")
         });
+    }
+
+    checkAllValid () {
+        let valid = true;
+        for (let key in this.state.controls) {
+            if (this.state.controls[key].valid === false){
+                valid = false;
+            }
+        }
+        return valid
     }
 
     render() {
@@ -96,6 +112,7 @@ class Login extends Component {
         let errorMessage = null;
         if (this.props.message) {
             console.log(this.props.message);
+            errorMessage = (<p>Incorrect Username or Password</p>)
         }
 
 
@@ -111,18 +128,23 @@ class Login extends Component {
                 changed={(event) => {this.inputChangeHandler(event, formElement.id)}}
             />
         ))
+        let allValid = this.checkAllValid();
+
         let authRedirect = null;
         if (this.props.loggedIn) {
-            authRedirect= <Redirect to={'/LoggedIn'} />
-        }
+            authRedirect= <Redirect to={'/search'} />
+        } 
 
         return (
-        <div>
+        <div className={classes.Login}>
+            <LoginHeader />
+            {authRedirect}
+            {errorMessage}
             <form onSubmit={(event) => this.submitHandler(event)}>
-                {authRedirect}
                 {form}
-                <button>Login</button>    
-            </form>     
+                <button disabled={allValid === false}>Login</button>
+            </form>
+            <Link to="/signup">Sign Up</Link>    
         </div>)
     }
 
@@ -131,6 +153,7 @@ class Login extends Component {
 const mapStateToProps = state => {
     return {
         loggedIn: state.auth.isLoggedIn,
+        registered: state.auth.registered,
         message: state.message.message,
     }
 }
@@ -138,6 +161,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onAuth: (username, password) => dispatch( authAction.login(username, password) ),
+        logout: () => dispatch( authAction.logout() )
     }
 }
 
