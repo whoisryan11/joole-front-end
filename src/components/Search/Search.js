@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import Input from '../Input/Input'
+import LoginHeader from '../LoginHeader/LoginHeader';
 import * as searchAction from '../../actions/search'
 
 
@@ -33,6 +33,7 @@ class Search extends Component {
         }
         return (
         <div>
+            <LoginHeader />
             <input 
                 value={this.state.type}
                 onChange={(event) => {this.inputChangeHandler(event)}}/>

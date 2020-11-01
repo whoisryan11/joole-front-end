@@ -1,4 +1,4 @@
-.Login {
+.Signup {
     margin: 20px auto;
     width: 80%;
     text-align: center;
@@ -8,13 +8,6 @@
     box-sizing: border-box;
 }
 
-@media (min-width: 600px) {
-    .Auth {
-        width: 500px;
-    }
-}
-
-.Right {
+.Right{
     text-align: right;
-    
 }

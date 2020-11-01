@@ -137,14 +137,15 @@ class Login extends Component {
 
         return (
         <div className={classes.Login}>
+            <div  className={classes.Right}><Link to={`/signup`}>Sign Up</Link></div>
+
             <LoginHeader />
             {authRedirect}
             {errorMessage}
             <form onSubmit={(event) => this.submitHandler(event)}>
                 {form}
                 <button disabled={allValid === false}>Login</button>
-            </form>
-            <Link to="/signup">Sign Up</Link>    
+            </form> 
         </div>)
     }
 

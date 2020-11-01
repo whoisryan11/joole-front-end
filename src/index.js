@@ -4,11 +4,11 @@ import './index.css';
 import App from './components/App/App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
+import { createStore, applyMiddleware, compose} from 'redux';
 import rootReducer from './reducers/index';
 import thunk from 'redux-thunk';
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
+/** 
 const logger = store => {
   return next => {
     return action => { 
@@ -19,7 +19,7 @@ const logger = store => {
     }
   }
 }
-
+*/
 const store = createStore(rootReducer, composeEnhancers(
   applyMiddleware(thunk)
 ));

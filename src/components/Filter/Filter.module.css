@@ -1,0 +1,21 @@
+.Filter{
+    width: 248px;
+    position: absolute;
+    top: 100px;
+    bottom: 0;
+    
+}
+
+.Title {
+    background-color: lightgray;
+    
+}
+
+.Para {
+    display: flex;
+}
+
+input {
+    margin-left: 8px;
+    margin-right: 8px;
+}

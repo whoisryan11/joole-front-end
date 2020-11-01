@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 import * as authAction from '../../actions/auth'
 import Input from '../Input/Input';
 import { Link, Redirect } from 'react-router-dom';
+import LoginHeader from '../LoginHeader/LoginHeader';
+
+import styles from './Signup.module.css';
 
 class Signup extends Component {
     state = {
@@ -119,7 +122,7 @@ class Signup extends Component {
     checkPasswordMatched () {
         if((this.state.controls.password.touched && this.state.controls.passwordConfirm.touched) && 
             (this.state.controls.password.valid && this.state.controls.passwordConfirm.valid) &&
-            (this.state.controls.password.value != this.state.controls.passwordConfirm.value)
+            (this.state.controls.password.value !== this.state.controls.passwordConfirm.value)
         ){
             return (<p>Passwords do not match.</p>);
         } else {
@@ -164,7 +167,7 @@ class Signup extends Component {
         let passwordMatch = this.checkPasswordMatched();
         let allValid = this.checkAllValid();
         console.log(allValid);
-        let errorMessage = null;
+        //let errorMessage = null;
         
         if(this.props.isregisterSuccess) {
             return (<Redirect to={'/login'} />)
@@ -172,13 +175,16 @@ class Signup extends Component {
         
 
         return (
-        <div className="Signup">
+        <div className={styles.Signup}>
+            <div className={styles.Right}><Link to={`/login`}>Login</Link></div>
+
+            <LoginHeader />
             {passwordMatch}
             <form onSubmit={(event) => this.submitHandler(event)}>
                 {form}
                 <button disabled={passwordMatch !== null || allValid === false}>Sign Up</button>
             </form>
-            <Link to="/login">Login</Link>
+            
         </div>);
     }
 }
