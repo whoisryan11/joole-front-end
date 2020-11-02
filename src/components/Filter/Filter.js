@@ -2,24 +2,29 @@ import React from 'react';
 import { Slider } from '@material-ui/core';
 
 import styles from './Filter.module.css';
+
+const INITIAL_YEAR = [1990, 2020];
+const INITIAL_AIRFLOW = [2000, 10000];
+const OTHER_INITIAL = [0, 100]
+
 function valuetext(value) {
     return `${value}`;
 }
 const Filter = (props) => {
-    const [yearValue, setYearValue] = React.useState([1990, 2020]);
-    const [airflowValue, setAirflowValue] = React.useState([2000, 10000]);
+    const [yearValue, setYearValue] = React.useState(INITIAL_YEAR);
+    const [airflowValue, setAirflowValue] = React.useState(INITIAL_AIRFLOW);
     const handleAirflowChange = (event, newValue) => {
         setAirflowValue(newValue);
     };
-    const [maxPowerValue, setMaxPowerValue] = React.useState([0, 100]);
+    const [maxPowerValue, setMaxPowerValue] = React.useState(OTHER_INITIAL);
     const handleMaxPowerChange = (event, newValue) => {
         setMaxPowerValue(newValue);
     };
-    const [soundValue, setSoundValue] = React.useState([0, 100]);
+    const [soundValue, setSoundValue] = React.useState(OTHER_INITIAL);
     const handleSoundChange = (event, newValue) => {
         setSoundValue(newValue);
     };
-    const [diameterValue, setDiameterValue] = React.useState([0, 100]);
+    const [diameterValue, setDiameterValue] = React.useState(OTHER_INITIAL);
     const handleDiameterChange = (event, newValue) => {
         setDiameterValue(newValue);
     };
@@ -27,9 +32,23 @@ const Filter = (props) => {
     return (
     <div className={styles.Filter}>
         <div className={styles.Para}>
-            <p>Search: </p>
-            <button onClick={() => 
-                props.updateFilter(yearValue, airflowValue, maxPowerValue, soundValue, diameterValue)}>save</button>
+            <p className={styles.Para}>Search: </p>
+            <button className={styles.Button} 
+            onClick={() => 
+                props.updateFilter(yearValue, airflowValue, maxPowerValue, soundValue, diameterValue)}>
+                    Save
+            </button>
+            <button className={styles.Button} 
+            onClick={() => {
+                props.updateFilter(INITIAL_YEAR, INITIAL_AIRFLOW, OTHER_INITIAL, OTHER_INITIAL, OTHER_INITIAL);
+                setYearValue(INITIAL_YEAR);
+                setAirflowValue(INITIAL_AIRFLOW);
+                setMaxPowerValue(OTHER_INITIAL);
+                setSoundValue(OTHER_INITIAL);
+                setDiameterValue(OTHER_INITIAL);
+            }}>
+                Clear
+            </button>
         </div>
         <div className={styles.Title}>Product type</div>
         <div className={styles.para}>

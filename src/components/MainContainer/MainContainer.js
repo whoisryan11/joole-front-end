@@ -6,10 +6,11 @@ import * as authAction from '../../actions/auth';
 
 import Login from '../Login/Login';
 import Signup from '../Signup/Signup';
-import Search from '../Search/Search';
+import SearchPage from '../SearchPage/SearchPage';
 import ProductContainer from '../Product/ProductContainer';
 
 import styles from './MainContainer.module.css'
+import ProductDetail from '../ProductDetail/ProductDetail';
 
 
 class MainContainer extends Component {
@@ -33,18 +34,16 @@ class MainContainer extends Component {
         const routeGuard =  this.props.loggedIn;
         return (
         <div className={styles.Main}>        
-            {routeGuard ? <Link to={"/"}><button onClick={(event) => {this.logoutHandler(event)}}>Logout</button></Link> : null} 
-
             <Switch>
                 <Route exact path='/' render={() => 
                 <div>
                     <p><Link  to={`/login`}>Login</Link></p>
                 </div>} />
-
                 <Route exact path='/signup' render={ ( routeProps ) => <Signup {...routeProps} />} />
                 <Route exact path="/login" render={(routeProps) => <Login {...routeProps} />} />
-                <Route exact path="/search" render={(routeProps) => ( routeGuard ? (<Search {...routeProps}/>) : (<Redirect to='/login'/>) ) }/>
+                <Route exact path="/search" render={(routeProps) => ( routeGuard ? (<div><div className={styles.Header}><Link to={"/"}><button onClick={(event) => {this.logoutHandler(event)}}>Logout</button></Link></div><SearchPage {...routeProps}/></div>) : (<Redirect to='/login'/>) ) }/>
                 <Route exact path="/products" render={(routeProps) => ( routeGuard ? (<ProductContainer {...routeProps}/>) : (<Redirect to='/login'/>) ) }/>
+                <Route path='/productDetail/:productId' exact render={(routeProps) => ( routeGuard ? ( <ProductDetail {...routeProps} /> ) : (<Redirect to='/login'/>) )} />
             </Switch>
         </div>)
     }

@@ -1,0 +1,42 @@
+
+.InlineDiv {
+    margin: 1em;
+    display: inline-block;
+    height: 50px;
+}
+
+.Select {
+    margin-right: 0;
+    height: 40px;
+    font-size: 150%;
+}
+
+.Search {
+    margin: 0;
+    height: 34px;
+    font-size: 150%;
+}
+.circle1 {
+    display: inline;
+}
+.circle2{
+    display: inline;
+    margin-left: -30px;
+    margin-right: 10px;
+    position:relative;
+    top:-8px;
+}
+
+
+.logo {
+    color: #1F4F7B;
+    text-align: center;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    font-weight: bold;
+    font-size: 300%;
+    margin-right: 10px;   
+}
+
+.Button {
+    height: 34px
+}

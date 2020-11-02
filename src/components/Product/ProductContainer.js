@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
+import * as authAction from '../../actions/auth';
 import * as searchAction from '../../actions/search';
 import Filter from '../Filter/Filter';
 import Products from './Product';
+import styles from './product.module.css';
 
 class ProductContainer extends Component{
     getAirflow() {
@@ -24,11 +27,18 @@ class ProductContainer extends Component{
     getSound() {
         return this.props.mechanicalList.mechanicalList.map(product => product.sound);
     }
+
+    searchChangeHandler = (event) => {
+        this.setState({
+            search: event.target.value
+        })
+    }
     
     constructor(props) {
         super(props);
         this.state = { 
             products: this.props.mechanicalList.mechanicalList,
+            search: '',
             filterParas: {
                 minYear: '',
                 maxYear: '',
@@ -43,6 +53,17 @@ class ProductContainer extends Component{
             }
         };
     };
+
+    searchFilter = (products) => {
+        let productsExpand = [...products];
+        let result = [];
+        for (let product of productsExpand) {
+            if (product.name.toLowerCase().includes(this.state.search.toLocaleLowerCase())){
+                result.push(product);
+            }
+        }
+        return result;
+    }
 
     yearFilter = (products, minYear, maxYear) => {
         let productsExpand = [...products];
@@ -124,8 +145,23 @@ class ProductContainer extends Component{
         //console.log(minAirflow);
     }
 
+    logoutHandler(event) {
+        event.preventDefault();
+        this.props.onLogout();
+    }
+
     render() {
-        let productList = [...this.state.products];
+        
+        let productList = [];
+        if (this.state.products !== undefined) {
+            productList = [...this.state.products];
+        } else if (localStorage.getItem('mechanicalList') !== null ) {
+            let products = JSON.parse(localStorage.getItem('mechanicalList'));
+            productList = [...products];
+        } 
+        if(this.state.search.trim() !== '') {
+            productList = this.searchFilter(productList);
+        }
         productList = this.yearFilter(productList, this.state.filterParas.minYear, this.state.filterParas.maxYear);
         productList = this.airflowFilter(productList, this.state.filterParas.minAirflow, this.state.filterParas.maxAirflow);
         productList = this.powerFilter(productList, this.state.filterParas.minPower, this.state.filterParas.maxPower);
@@ -133,10 +169,36 @@ class ProductContainer extends Component{
         productList = this.diameterFilter(productList, this.state.filterParas.minDiameter, this.state.filterParas.maxDiameter);
         //console.log(this.state);
         // console.log(productList);
-        return (<div>
-            <Filter updateFilter={this.updateFilter}/>
-            <Products products={ productList } />
-        </div>)
+        return (
+            <div>
+                <div>
+                    <div className={styles.InlineDiv} style={{float: "left"}}>
+                        <span className={styles.logo}>j</span>
+                        <span className={styles.logo}><svg width="48" height="48" className={styles.circle1}>
+                            <circle cx="24" cy="24" r="23" fill="#1F4F7B" opacity="0.4" />
+                        </svg></span>
+                        <span><svg width="48" height="48" className={styles.circle2}>
+                            <circle cx="24" cy="24" r="23" fill="#1F4F7B" opacity="0.4" />
+                        </svg></span>
+                        <span className={styles.logo}>l</span>
+                        <span className={styles.logo}>e</span>
+                    </div>
+                    <div className={styles.InlineDiv}>
+                        <select className={styles.Select}>
+                            <option value="hvac_fans">HVAC Fans</option>
+                        </select>
+                        <input className={styles.Search} value={this.state.search} onChange={(event) => {this.searchChangeHandler(event)}}/>
+                    </div>
+                    <div className={styles.InlineDiv} style={{float: "right"}}>
+                    <Link to={"/"}><button className={styles.Button} onClick={(event) => {this.logoutHandler(event)}}>Logout</button></Link>
+                    </div>
+                </div>
+                <div>
+                    <Filter updateFilter={this.updateFilter}/>
+                    <Products products={ productList } />
+                </div>
+            </div>
+        )
     }
 }
 
@@ -148,7 +210,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        finishSearch: () => dispatch( searchAction.finishSearch() )
+        finishSearch: () => dispatch( searchAction.finishSearch() ),
+        onLogout: () => dispatch( authAction.logout() ),
     }
 }
 

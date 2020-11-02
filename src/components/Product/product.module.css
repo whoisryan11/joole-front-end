@@ -6,7 +6,9 @@
     right: 0;
     overflow: auto;
 }
-
+.CardContent {
+    margin-top: 1em;
+}
 .Card {
     border: 2px solid lightgray;
     margin: 5px;
@@ -14,16 +16,68 @@
 
 .Center {
     text-align: center;
+    padding: 0;
+    font-weight: 400;
+    color: rgb(1, 112, 149);
 }
 
 .Detail {
     text-align: center;
     font-size: 12;
     background-color: lightgray;
+    margin-top: 1em;
+    padding: 0;
 }
 
 .Verify {
     font-size: 10;
     text-align: right;
     color: rgb(35, 157, 197);
+}
+
+h3 {
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+}
+
+.InlineDiv {
+    margin: 1em;
+    display: inline-block;
+    height: 50px;
+}
+
+.Select {
+    margin-right: 0;
+    height: 40px;
+    font-size: 150%;
+}
+
+.Search {
+    margin: 0;
+    height: 34px;
+    font-size: 150%;
+}
+.circle1 {
+    display: inline;
+}
+.circle2{
+    display: inline;
+    margin-left: -30px;
+    margin-right: 10px;
+    position:relative;
+    top:-8px;
+}
+
+
+.logo {
+    color: #1F4F7B;
+    text-align: center;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    font-weight: bold;
+    font-size: 300%;
+    margin-right: 10px;   
+}
+
+.Button {
+    height: 34px
 }

@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import LoginHeader from '../LoginHeader/LoginHeader';
 import * as searchAction from '../../actions/search'
 
+import styles from './Search.module.css';
 
 class Search extends Component {
     state = {
@@ -33,8 +33,11 @@ class Search extends Component {
         }
         return (
         <div>
-            <LoginHeader />
+            <select className={styles.Dropdown}>
+                <option value="1">Mechanical</option>
+            </select>
             <input 
+                className={styles.Search} 
                 value={this.state.type}
                 onChange={(event) => {this.inputChangeHandler(event)}}/>
             <button onClick={(event) => this.submitHandler(event)}>Search</button>
