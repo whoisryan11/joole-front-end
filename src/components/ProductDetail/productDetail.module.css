@@ -40,3 +40,63 @@
 .Button {
     height: 34px
 }
+
+.Nav{
+    margin-top: 1em;
+    background-color: white;
+    border: whitesmoke, 1px solid;
+    opacity: 90%;
+    padding: 0.5em 1em;
+    text-align: left;
+}
+
+.Title{
+    border: lightgray 1px solid;
+    margin-top: 0;
+    background-color: white;
+    text-align: left;
+}
+
+.TitleName{
+    color: #1263af;
+    font-size: larger;
+    font-weight: bold;
+    padding: 0.5em 3em ;
+    margin: 0;
+}
+
+.Summary{
+    background-color: white;
+    text-align: left;
+    padding: 1em 0em 1em 1em;
+
+}
+
+.H1 {
+    font-size: x-large;
+    font-weight: bold;
+    color: #1263af
+}
+
+.Seprator{
+    padding: 3px 0px 3px 5px;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    margin: 0;
+}
+
+.Table{
+    background-color: white;
+    display: flex;
+    padding-bottom: 3em;
+}
+
+.Info{
+    display: flex;
+}
+
+.Column{
+    text-align: left;
+    width: 48%;
+    margin: auto;
+}

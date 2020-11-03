@@ -39,6 +39,7 @@ class ProductContainer extends Component{
         this.state = { 
             products: this.props.mechanicalList.mechanicalList,
             search: '',
+            compare: [],
             filterParas: {
                 minYear: '',
                 maxYear: '',
@@ -148,8 +149,8 @@ class ProductContainer extends Component{
     logoutHandler(event) {
         event.preventDefault();
         this.props.onLogout();
-    }
-
+    } 
+    
     render() {
         
         let productList = [];
@@ -168,10 +169,10 @@ class ProductContainer extends Component{
         productList = this.soundFilter(productList, this.state.filterParas.minSound, this.state.filterParas.maxSound);
         productList = this.diameterFilter(productList, this.state.filterParas.minDiameter, this.state.filterParas.maxDiameter);
         //console.log(this.state);
-        // console.log(productList);
+        
         return (
             <div>
-                <div>
+                <div style={{background:'linear-gradient(-45deg, #7bb5ee, #ffffff)', paddingBottom: '1em' }}>
                     <div className={styles.InlineDiv} style={{float: "left"}}>
                         <span className={styles.logo}>j</span>
                         <span className={styles.logo}><svg width="48" height="48" className={styles.circle1}>
@@ -195,7 +196,7 @@ class ProductContainer extends Component{
                 </div>
                 <div>
                     <Filter updateFilter={this.updateFilter}/>
-                    <Products products={ productList } />
+                    <Products products={ productList }  />
                 </div>
             </div>
         )

@@ -4,6 +4,7 @@ import { Route, Link, Switch, Redirect } from 'react-router-dom';
 
 import * as authAction from '../../actions/auth';
 
+import Compare from '../Compare/Compare';
 import Login from '../Login/Login';
 import Signup from '../Signup/Signup';
 import SearchPage from '../SearchPage/SearchPage';
@@ -43,7 +44,8 @@ class MainContainer extends Component {
                 <Route exact path="/login" render={(routeProps) => <Login {...routeProps} />} />
                 <Route exact path="/search" render={(routeProps) => ( routeGuard ? (<div><div className={styles.Header}><Link to={"/"}><button onClick={(event) => {this.logoutHandler(event)}}>Logout</button></Link></div><SearchPage {...routeProps}/></div>) : (<Redirect to='/login'/>) ) }/>
                 <Route exact path="/products" render={(routeProps) => ( routeGuard ? (<ProductContainer {...routeProps}/>) : (<Redirect to='/login'/>) ) }/>
-                <Route path='/productDetail/:productId' exact render={(routeProps) => ( routeGuard ? ( <ProductDetail {...routeProps} /> ) : (<Redirect to='/login'/>) )} />
+                <Route exact path='/productDetail/:productId' render={(routeProps) => ( routeGuard ? ( <ProductDetail {...routeProps} /> ) : (<Redirect to='/login'/>) )} />
+                <Route exact path='/compare' render={(routeProps) => ( routeGuard ? ( <Compare {...routeProps} /> ) : (<Redirect to='/login'/>) )} />
             </Switch>
         </div>)
     }

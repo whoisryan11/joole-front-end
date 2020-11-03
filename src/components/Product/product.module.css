@@ -81,3 +81,12 @@ h3 {
 .Button {
     height: 34px
 }
+.Nav{
+    color: #1F4F7B;
+    font-weight: bold;
+    margin-bottom: 0em;
+    margin-left: 5px;
+    background-color: white;
+    border: whitesmoke, 1px solid;
+    text-align: left;
+}

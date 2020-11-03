@@ -3,8 +3,28 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './product.module.css';
 const Products = (props) => {
+    const [checkedState, setCheckedState] = React.useState({});
+    const handleCheckedChange = (productId, product) => {
+        let _cs = { ...checkedState };
+        if (_cs.hasOwnProperty(productId)) {
+            delete _cs[productId];
+            setCheckedState(_cs);
+        } else {
+            _cs[productId] = product;
+            setCheckedState(_cs);
+        }
+    }
+
     return (
         <div className={styles.Products}>
+            <div className={styles.Nav}>
+                <Link to={'/search'}>Mechanicals</Link> {'> HVAC Fans'}
+                <Link style={{float: 'right'}} to={location => ({
+                ...location,
+                pathname: "/compare",
+                products: {...checkedState}
+            })}><button>Compare</button></Link>
+            </div>
             <GridList cols={4} cellHeight={500}>
                 {props.products.map(product => (
                     <GridListTile key={product.id} cols={1}>
@@ -29,7 +49,8 @@ const Products = (props) => {
                                 </Typography>
                             </CardContent>
                             <CardActions>
-                                <Checkbox color="default" />
+                                <Checkbox color="default"
+                                    onChange={() => handleCheckedChange(product.id, product)}  />
                                 <div>compare</div>
                                 <Button variant="contained" color="primary">
                                     Add to
