@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styles from './productDetail.module.css';
+import * as authAction from '../../actions/auth';
 
 class ProductDetail extends Component {
     constructor(props) {
@@ -31,6 +32,11 @@ class ProductDetail extends Component {
     componentDidMount(){
         console.log(this.props);
     }
+
+    logoutHandler(event) {
+        event.preventDefault();
+        this.props.onLogout();
+    } 
 
     render () {
         return (
@@ -257,4 +263,11 @@ const maptStateToProps = state => {
     }
 }
 
-export default connect( maptStateToProps, null )( ProductDetail );
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onLogout: () => dispatch( authAction.logout() )
+    }
+}
+
+export default connect( maptStateToProps, mapDispatchToProps )( ProductDetail );

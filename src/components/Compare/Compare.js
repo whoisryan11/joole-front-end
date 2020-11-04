@@ -15,6 +15,11 @@ class Compare extends Component {
         //console.log(this.state);
     }
 
+    logoutHandler(event) {
+        event.preventDefault();
+        this.props.onLogout();
+    } 
+    
     goBack() {
         this.props.history.goBack();
     }

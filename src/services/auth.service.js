@@ -18,6 +18,7 @@ const login = async (username, password) => {
     }).then((response) => {
         if(response.data.token) {
             localStorage.setItem("user", JSON.stringify(response.data));
+            axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.token;
         }
         return response.data;
     })
@@ -25,6 +26,7 @@ const login = async (username, password) => {
 
 const logout = () => {
     localStorage.removeItem("user");
+    delete axios.defaults.headers.common["Authorization"];
 }
 export default {
     register, login, logout

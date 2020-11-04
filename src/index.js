@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose} from 'redux';
 import rootReducer from './reducers/index';
 import thunk from 'redux-thunk';
+import axios from 'axios';
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 /** 
 const logger = store => {
@@ -20,9 +21,33 @@ const logger = store => {
   }
 }
 */
+
 const store = createStore(rootReducer, composeEnhancers(
   applyMiddleware(thunk)
 ));
+
+axios.defaults.baseURL= 'http://localhost:8080';
+axios.defaults.headers.post['Content-Type'] = 'application/json';
+
+axios.interceptors.request.use(request => {
+  console.log(request);
+  // Edit request config
+  return request;
+}, error => {
+  console.log(error);
+  return Promise.reject(error);
+});
+
+axios.interceptors.response.use(response => {
+  console.log(response);
+  // Edit request config
+  return response;
+}, error => {
+  console.log(error);
+  return Promise.reject(error);
+});
+
+
 
 ReactDOM.render(
   <Provider store={store}>
